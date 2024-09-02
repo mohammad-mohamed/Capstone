@@ -1,0 +1,26 @@
+:root{
+    --Color-Background-LightBeige:#E1DED5;
+    --Color-Background-Graphic:#939F92;
+    --Color-Background-Buttons:#4F5C4F;
+    --Color-Background-Text:#D4D5D3;
+    --Color-Background-Default:#FFFFFF;
+    --Color-Text:#000000;
+    --Font-Main-Hammersmith:"Hammersmith One", sans-serif;
+}
+/*
+ Light Beige (#E1DED5)
+Used as the primary background color.
+
+Sage Green (#939F92)
+Accentuates the header, footer, and some graphic elements.
+
+Dark Green (#4F5C4F)
+Used for text, buttons, and small accents.
+
+Soft Gray (#D4D5D3)
+Used in secondary background sections and dividers.
+
+White (#FFFFFF)
+Applied in text blocks and as a contrast color.
+
+*/

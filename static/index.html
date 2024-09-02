@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Routes</title>
+    <style>
+        *,::before,::after{
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>API Routes</h1>
+
+    <h2>Home Page</h2>
+    <table>
+        <tr>
+            <th>HTTP Methods</th>
+            <th>Path</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/</td>
+            <td>Home page</td>
+        </tr>
+    </table>
+
+    <h2>Users</h2>
+    <table>
+        <tr>
+            <th>HTTP Methods</th>
+            <th>Path</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/user</td>
+            <td>Get all users</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/user/:id</td>
+            <td>Get user by ID</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/user/register</td>
+            <td>Register a new user</td>
+        </tr>
+        <tr>
+            <td>PATCH/PUT</td>
+            <td>/user/:id</td>
+            <td>Update user by ID</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/user/:id</td>
+            <td>Delete user by ID</td>
+        </tr>
+    </table>
+
+    <h2>Products/Items</h2>
+    <table>
+        <tr>
+            <th>HTTP Methods</th>
+            <th>Path</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/product</td>
+            <td>Get all products</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/product/recent</td>
+            <td>Get 5 most recent products</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/product/:id</td>
+            <td>Get product by ID</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/product/add</td>
+            <td>Add a new product</td>
+        </tr>
+        <tr>
+            <td>PUT/PATCH</td>
+            <td>/product/:id</td>
+            <td>Update product by ID</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/product/:id</td>
+            <td>Delete product by ID</td>
+        </tr>
+    </table>
+
+</body>
+</html>
