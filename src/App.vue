@@ -1,30 +1,131 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <Navbar/>
   <router-view/>
+  <Footer/>
 </template>
 
+<script>
+
+import Navbar from './components/Navbar.vue';
+import Footer from './components/Footer.vue'
+
+export default {
+  components: {
+    Navbar,
+    Footer
+  }
+}
+
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+
+/* bacground colors */
+.bg-light-brown{background-color: var(--light-brown-color);}
+.bg-brown{background-color: var(--brown-color);}
+.bg-light-grey{background-color: var(--light-grey-color);}
+.bg-light-grey-color-shade{background-color: var(--light-grey-color-shade);}
+.bg-dark-grey{background-color: var(--dark-grey-color);}
+.bg-dark{background-color: var(--dark-color);}
+.bg-white{background-color: var(--white-color);}
+
+/* text colors */
+.text-grey{color: var(--dark-grey-color);}
+.text-brown{color: var(--brown-color);}
+.text-white{color: var(--white-color);}
+.text-dark{color: var(--dark-color);}
+.text-light-grey{color: var(--light-grey-color);}
+
+/* buttons and links */
+.btn{
+    display: inline-block;
+    cursor: pointer;
 }
 
-nav {
-  padding: 30px;
+/* flexbox and grids */
+.flex{
+    /* centering as default */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+.grid{
+    display: grid;
+}
+.container{
+    max-width: calc(1145px + 20px);
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+/* text stylings */
+.text{
+    line-height: 1.35;
+    opacity: 0.8;
+    font-weight: 400;
+}
+.text-center{text-align: center;}
+.text-uppercase{text-transform: uppercase;}
+.lead{
+    color: var(--dark-grey-color);
+    font-size: 1.8rem;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+/* padding */
+.py{
+    padding: 12.5rem 0;
 }
+
+/* section title */
+.section-title h2{
+    text-transform: capitalize;
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+}
+.section-title .line{
+    height: 1px;
+    width: 61px;
+    background-color: var(--dark-grey-color);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+}
+
+/* product info stylings */
+.info{
+    padding: 2rem;
+}
+.info .ratings span{
+    margin-left: .2rem;
+}
+.info .name{
+    font-weight: 600;
+    margin: 2rem 0;
+}
+.info .price .old{
+    position: relative;
+}
+.info .price .old::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: var(--dark-grey-color);
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+}
+.info .price .new{
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
 </style>
