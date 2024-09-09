@@ -37,7 +37,7 @@ export default createStore({
   actions: {
     async fetchProducts({ commit }) {
       try {
-        const response = await axios.get('https://demure-1.onrender.com/product');
+        const response = await axios.get('https://capstone-f7v7.onrender.com/product');
         if (response.status === 200) {
           commit('setProducts', response.data.results);
         } else {
@@ -50,9 +50,9 @@ export default createStore({
 
     async fetchProduct({ commit }, prodID) {
       try {
-        // const response = await axios.get(`https://demure-1.onrender.com/product/${prodID}`);
+        // const response = await axios.get(`https://capstone-f7v7.onrender.com/product/${prodID}`);
         // const product = await response.json();
-        const {result} = await (await axios.get(`https://demure-1.onrender.com/product/${prodID}`)).data
+        const {result} = await (await axios.get(`https://capstone-f7v7.onrender.com/product/${prodID}`)).data
         console.log(result);
         
         if (result) {
@@ -65,7 +65,7 @@ export default createStore({
 
     async addProduct({ commit }, productData) {
       try {
-        const response = await axios.post('https://demure-1.onrender.com/product/add', productData);
+        const response = await axios.post('https://capstone-f7v7.onrender.com/product/add', productData);
         dispatch('fetchProducts');
         if (response.status === 201) {
           commit('addProduct', response.data);
@@ -79,7 +79,7 @@ export default createStore({
 
     async updateProduct({ commit }, { prodID, productData }) {
       try {
-        const response = await axios.patch(`https://demure-1.onrender.com/product/${prodID}`, productData);
+        const response = await axios.patch(`https://capstone-f7v7.onrender.com/product/${prodID}`, productData);
         dispatch('fetchProducts');
         if (response.status === 200) {
           commit('updateProduct', response.data);
@@ -93,7 +93,7 @@ export default createStore({
 
     async deleteProduct({ commit }, prodID) {
       try {
-        const response = await axios.delete(`https://demure-1.onrender.com/product/${prodID}`);
+        const response = await axios.delete(`https://capstone-f7v7.onrender.com/product/${prodID}`);
         dispatch('fetchProducts');
         if (response.status === 204) {
           commit('deleteProduct', prodID);
