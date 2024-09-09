@@ -56,7 +56,7 @@ export default createStore({
   actions: {
     async fetchProducts({ commit }) {
       try {
-        const response = await axios.get('https://demure-1.onrender.com/product');
+        const response = await axios.get('https://capstone-f7v7.onrender.com/products');
         if (response.status === 200) {
           commit('setProducts', response.data.results);
         } else {
@@ -69,9 +69,9 @@ export default createStore({
 
     async fetchProduct({ commit }, prodID) {
       try {
-        // const response = await axios.get(`https://demure-1.onrender.com/product/${prodID}`);
+        // const response = await axios.get(`https://capstone-f7v7.onrender.com/product/${prodID}`);
         // const product = await response.json();
-        const {result} = await (await axios.get(`https://demure-1.onrender.com/product/${prodID}`)).data
+        const {result} = await (await axios.get(`https://capstone-f7v7.onrender.com/products/${prodID}`)).data
         console.log(result);
         
         if (result) {
@@ -84,7 +84,7 @@ export default createStore({
 
     async addProduct({ commit, dispatch }, productData) {
       try {
-        const response = await axios.post('https://demure-1.onrender.com/product/add', productData);
+        const response = await axios.post('https://capstone-f7v7.onrender.com/products/add', productData);
         if (response.status === 201) {
           commit('addProduct', response.data);
           dispatch('fetchProducts'); // Fetch the updated list of products
@@ -98,7 +98,7 @@ export default createStore({
 
     async updateProduct({ commit, dispatch }, productData ) {
       try {
-        const response = await axios.patch(`https://demure-1.onrender.com/product/${productData.prodID}`, productData);
+        const response = await axios.patch(`https://capstone-f7v7.onrender.com/products/${productData.prodID}`, productData);
         if (response.status === 200) {
           commit('updateProduct', response.data);
           dispatch('fetchProducts'); // Fetch the updated list of products
@@ -112,7 +112,7 @@ export default createStore({
 
     async deleteProduct(context, prodID) {
       try {
-        const {msg} = await (await axios.delete(`https://demure-1.onrender.com/product/${prodID}`)).data;
+        const {msg} = await (await axios.delete(`https://capstone-f7v7.onrender.com/products/${prodID}`)).data;
         if (msg) {
           // commit('deleteProduct', prodID);
           context.dispatch('fetchProducts'); // Fetch the updated list of products
@@ -127,7 +127,7 @@ export default createStore({
     },
     async fetchUsers({ commit }) {
       try {
-        const response = await axios.get('https://demure-1.onrender.com/user');
+        const response = await axios.get('https://capstone-f7v7.onrender.com/users');
         commit('SET_USERS', response.data.results);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -137,7 +137,7 @@ export default createStore({
       try {
         console.log('there');
         
-        const response = await axios.post('https://demure-1.onrender.com/user/register', userData);
+        const response = await axios.post('https://capstone-f7v7.onrender.com/users/register', userData);
         console.log(response);
         
         if (response.status === 201) {
@@ -155,7 +155,7 @@ export default createStore({
     
     async updateUser({ commit }, userData) {
       try {
-        const response = await axios.patch(`https://demure-1.onrender.com/user/${userData.userID}`, userData);
+        const response = await axios.patch(`https://capstone-f7v7.onrender.com/users/${userData.userID}`, userData);
         commit('UPDATE_USER', response.data);
       } catch (error) {
         console.error('Error updating user:', error);
@@ -163,7 +163,7 @@ export default createStore({
     },
     async deleteUser({ commit }, userID) {
       try {
-        await axios.delete(`https://demure-1.onrender.com/user/${userID}`);
+        await axios.delete(`https://capstone-f7v7.onrender.com/users/${userID}`);
         commit('DELETE_USER', userID);
       } catch (error) {
         console.error('Error deleting user:', error);
