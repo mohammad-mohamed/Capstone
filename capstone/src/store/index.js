@@ -1,7 +1,13 @@
 import { createStore } from 'vuex';
 import axios from 'axios';
 import sweet from 'sweetalert'; // Importing sweetalert
+import router from '@/router';
+import { applyToken } from '@/service/AuthenticatedUser';
+import { useCookies } from 'vue3-cookies';
+const {cookies} = useCookies()
+applyToken(cookies.get('verifiedUser')?.token)
 
+const url = 'http://localhost:3308/'
 export default createStore({
   state: {
     products: [],
@@ -56,9 +62,12 @@ export default createStore({
   actions: {
     async fetchProducts({ commit }) {
       try {
-        const response = await axios.get('https://capstone-f7v7.onrender.com/products');
-        if (response.status === 200) {
-          commit('setProducts', response.data.results);
+        const response = await (await axios.get(`${url}product`)).data;
+        
+        if (response.status === 401) {
+          router.push({name : 'admin'})
+        } else if (response.status === 200) {
+          commit('setProducts', response.results);
         } else {
           console.error('Failed to fetch products:', response.statusText);
         }

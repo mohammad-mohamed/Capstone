@@ -18,7 +18,7 @@
               <li><router-link to="/" class="nav-link">home</router-link></li>
               <li><router-link to="/about" class="nav-link">about</router-link></li>
               <li><router-link to="/products" class="nav-link">shop</router-link></li>
-              <li><router-link to="/admin" class="nav-link">admin</router-link></li>
+              <li><router-link to="/admin" v-if="user.userRole == 'admin'" class="nav-link">admin</router-link></li>
               <li><router-link to="/contact" class="nav-link">contact</router-link></li>
             </ul>
           </div>
