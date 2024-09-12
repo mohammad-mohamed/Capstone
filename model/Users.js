@@ -129,7 +129,7 @@ class Users {
         try {
             const { emailAdd, userPass } = req.body
             const strQry = `
-        SELECT userID, firstName, lastName, age, emailAdd, pwd, userRole, profileURL
+        SELECT *
         FROM Users
         WHERE emailAdd = '${emailAdd}';
         `
@@ -143,7 +143,7 @@ class Users {
                         }
                     )
                 } else {
-                    const isValidPass = await compare(pwd, result[0].userPass)
+                    const isValidPass = await compare(userPass, result[0].userPass)
                     if (isValidPass) {
                         const token = createToken({
                             emailAdd,
