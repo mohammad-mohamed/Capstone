@@ -39,7 +39,7 @@
       <!-- Product List -->
       <div class="product-list">
         <h3>All Products</h3>
-        <div v-if="products.length">
+        <div v-if="products && products.length">
           <div v-for="product in products" :key="product.prodID" class="product-card">
             <div class="product-info">
               <h4>{{ product.prodName }}</h4>
@@ -58,57 +58,10 @@
         </div>
       </div>
     </div>
-
-<!-- User Management -->
-<div class="user-management">
-  <h2>User Management</h2>
-  <!-- Form to Add or Update a User -->
-  <div class="user-form">
-    <h3>{{ isEditingUser ? 'Edit User' : 'Add New User' }}</h3>
-    <form @submit.prevent="isEditingUser ? updateUser() : addUser()">
-      <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" v-model="userForm.firstName" required />
-      </div>
-      <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" v-model="userForm.lastName" required />
-      </div>
-      <div class="form-group">
-        <label for="userAge">Age</label>
-        <input type="number" v-model="userForm.userAge" required />
-      </div>
-      <div class="form-group">
-        <label for="Gender">Gender</label>
-        <input type="text" v-model="userForm.Gender" required />
-      </div>
-      <div class="form-group">
-        <label for="userRole">Role</label>
-        <input type="text" v-model="userForm.userRole" required />
-      </div>
-      <div class="form-group">
-        <label for="emailAdd">Email</label>
-        <input type="email" v-model="userForm.emailAdd" required />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" v-model="userForm.userPass" required />
-      </div>
-      <div class="form-group">
-        <label for="userProfile">Profile</label>
-        <textarea v-model="userForm.userProfile"></textarea>
-      </div>
-      <div class="form-actions">
-        <button type="submit">{{ isEditingUser ? 'Update User' : 'Add User' }}</button>
-        <button v-if="isEditingUser" type="button" @click="cancelEditUser">Cancel</button>
-      </div>
-    </form>
-  </div>
-
   <!-- User List -->
   <div class="user-list">
     <h3>All Users</h3>
-    <div v-if="users.length">
+    <div v-if="users && users.length">
       <div v-for="user in users" :key="user.userID" class="user-card">
         <div class="user-info">
           <h4>{{ user.firstName }} {{ user.lastName }}</h4>
@@ -126,8 +79,6 @@
       <p>No users available.</p>
     </div>
   </div>
-</div>
-
   </div>
 </template>
 

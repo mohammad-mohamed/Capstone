@@ -5,9 +5,17 @@ import router from '@/router';
 import { applyToken } from '@/service/AuthenticatedUser';
 import { useCookies } from 'vue3-cookies';
 const {cookies} = useCookies()
-applyToken(cookies.get('verifiedUser')?.token)
 
-const url = 'http://localhost:3308/'
+import { toast} from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
+
+applyToken(cookies.get('LegitUser')?.token)
+
+const apiURL = 'http://localhost:3308/'
+
+
+
 export default createStore({
   state: {
     products: [],
@@ -55,6 +63,9 @@ export default createStore({
         state.users.splice(index, 1, updatedUser);
       }
     },
+    setLogin(state,data){
+      state.login = data
+    },
     DELETE_USER(state, userID) {
       state.users = state.users.filter(user => user.userID !== userID);
     },
@@ -62,10 +73,10 @@ export default createStore({
   actions: {
     async fetchProducts({ commit }) {
       try {
-        const response = await (await axios.get(`${url}product`)).data;
+        const response = await (await axios.get(`${apiURL}product`)).data;
         
         if (response.status === 401) {
-          router.push({name : 'admin'})
+          router.push({name : 'home'})
         } else if (response.status === 200) {
           commit('setProducts', response.results);
         } else {
@@ -161,7 +172,78 @@ export default createStore({
         console.error('Error adding user:', error);
       }
     },
-    
+    async register(context, payload) {
+      try {
+        const { msg, err, token } = await (await axios.post(`https://capstone-f7v7.onrender.com/users/register`, payload)).data
+        if (token) {
+          context.dispatch('fetchUsers')
+          toast.success(`${msg}`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+          router.push({ name: 'login' })
+        } else {
+          toast.error(`${err}`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+        }
+      } catch (e) {
+        toast.error(`${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+      }
+    },
+    async login(context, payload) {
+      try {
+        const { msg, result, token } = await (await axios.post(`${apiURL}user/login`, payload)).data
+
+        if (result) {
+
+          toast.success(`${msg}😎`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+
+          context.commit('setUser', {
+            msg,
+            result
+          })
+
+          cookies.set('LegitUser', { token, result })
+          applyToken(token)
+          router.push({ name: 'products' })
+        } else {
+          toast.error(`${msg}`, {
+            autoClose: 2000,
+            position: toast.POSITION.BOTTOM_CENTER
+          })
+        }
+      } catch (e) {
+        toast.error(`${e.message}`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+      }
+    },
+
+    async logOut(context){
+      try {
+        cookies.remove('LegitUser')
+        toast.success(`Logged out successfully😎`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+        router.push({name : 'home'})
+      } catch (error) {
+        toast.error(`Ooops something went wrong😭`, {
+          autoClose: 2000,
+          position: toast.POSITION.BOTTOM_CENTER
+        })
+      }
+    },
+
     async updateUser({ commit }, userData) {
       try {
         const response = await axios.patch(`https://capstone-f7v7.onrender.com/users/${userData.userID}`, userData);
@@ -178,6 +260,7 @@ export default createStore({
         console.error('Error deleting user:', error);
       }
     },
+
   },
   modules: {
     // Add any additional modules here
