@@ -15,11 +15,24 @@
               <i class="fas fa-times"></i>
             </button>
             <ul class="list-unstyled text-uppercase">
-              <li><router-link to="/" class="nav-link">home</router-link></li>
-              <li><router-link to="/about" class="nav-link">about</router-link></li>
-              <li><router-link to="/products" class="nav-link">shop</router-link></li>
-              <li><router-link to="/admin" v-if="user.userRole == 'admin'" class="nav-link">admin</router-link></li>
-              <li><router-link to="/contact" class="nav-link">contact</router-link></li>
+              <li><router-link to="/" class="nav-link">Home</router-link></li>
+              <li><router-link to="/about" class="nav-link">About</router-link></li>
+              <li><router-link to="/products" class="nav-link">Shop</router-link></li>
+              <li><router-link to="/checkout" class="nav-link">Checkout</router-link></li>
+              <li v-if="user && user.userRole == 'admin'"><router-link to="/admin" class="nav-link">Admin</router-link></li>
+              <li><router-link to="/contact" class="nav-link">Contact</router-link></li>
+              <ul class="userAccount navbar-nav">
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/login">Login</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/logout">Logout</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/register">Register</router-link>
+                        </li>
+                    </ul>
+
             </ul>
           </div>
           <!-- end of side navbar -->
@@ -45,15 +58,35 @@
               </router-link>
             </li>
             <li class="nav-item">
+                <router-link class="nav-link" to="/checkout"><span class="nav-link-text">Checkout</span></router-link>
+            </li>
+            <li class="nav-item">
               <router-link to="/admin" class="nav-link">
                 <span class="nav-link-text">admin</span>
               </router-link>
             </li>
+            <!-- <li v-if="user && user.userRole == 'admin'">
+              <router-link to="/admin" class="nav-link">
+                <span class="nav-link-text">admin</span>
+              </router-link>
+            </li> -->
             <li class="nav-item">
               <router-link to="/contact" class="nav-link">
                 <span class="nav-link-text">contact</span>
               </router-link>
             </li>
+
+            <ul class="userAccount navbar-nav">
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/login"><span class="nav-link-text">Login</span></router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/logout"><span class="nav-link-text">Logout</span></router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/register"><span class="nav-link-text">Register</span></router-link>
+                        </li>
+                    </ul>
           </ul>
           <!-- end of nav list -->
 

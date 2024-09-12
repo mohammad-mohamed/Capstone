@@ -11,11 +11,13 @@ const routes = [
     name: 'about',
     component: () => import('@/views/AboutView')
   },
-  {
-    path: '/admin',
-    name: 'admin',
-    component: () => import('@/views/AdminView')
-  },
+  
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/views/AdminView.vue'),
+    },
+    
   {
     path: '/products',
     name: 'products',
@@ -27,9 +29,29 @@ const routes = [
     component: () => import('@/views/ProductView.vue')
   },
   {
+    path: '/checkout',
+    name: 'checkout',
+    component: () => import('@/views/CheckoutView.vue')
+  },
+  {
     path: '/contact',
     name: 'contact',
     component: () => import('@/views/ContactView.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/LoginView.vue')
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: () => import('@/views/LogoutView.vue')
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/RegisterView.vue')
   },
 
 ]
