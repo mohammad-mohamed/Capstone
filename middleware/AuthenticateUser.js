@@ -27,7 +27,7 @@ function verifyAToken(req, res, next) {
         }
     } else {
         res?.json({
-            status: res.statusCode,
+            status: 401,
             msg: "Please login."
         })
     }
