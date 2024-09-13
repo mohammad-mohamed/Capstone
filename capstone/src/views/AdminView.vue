@@ -70,7 +70,7 @@
           <p><strong>Age:</strong> {{ user.userAge }}</p>
         </div>
         <div class="user-actions">
-          <button @click="editUser(user)">Edit</button>
+          <!-- <button @click="editUser(user)">Edit</button> -->
           <button @click="deleteUser(user.userID)">Delete</button>
         </div>
       </div>

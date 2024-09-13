@@ -56,5 +56,42 @@ export default {
 </script>
 
 <style scoped>
-/* Add or adjust styles here */
+.product-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.product-image {
+  width: 300px; /* adjust the width to your liking */
+  height: 300px; /* adjust the height to your liking */
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-info p {
+  margin-bottom: 10px;
+}
+
+.back-button {
+  margin-top: 20px;
+  background-color: #4CAF50;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #3e8e41;
+}
 </style>

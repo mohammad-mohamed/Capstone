@@ -1,7 +1,7 @@
 <template>
 <!-- User Management -->
 <div class="user-management">
-  <h2>User Management</h2>
+  <h2>Register Now</h2>
   <!-- Form to Add or Update a User -->
   <div class="user-form">
     <h3>{{ isEditingUser ? 'Edit User' : 'Add New User' }}</h3>
@@ -22,6 +22,10 @@
         <label for="Gender">Gender</label>
         <input type="text" v-model="userForm.Gender" required />
       </div>
+      <!-- <div class="form-group">
+        <label for="userRole">Role</label>
+        <input type="text" v-model="userForm.userRole" required />
+      </div> -->
       <div class="form-group">
         <label for="emailAdd">Email</label>
         <input type="email" v-model="userForm.emailAdd" required />
@@ -39,6 +43,10 @@
         <button v-if="isEditingUser" type="button" @click="cancelEditUser">Cancel</button>
       </div>
     </form>
+    <div class="user-actions">
+          <button @click="editUser(user)">Edit</button>
+          <!-- <button @click="deleteUser(user.userID)">Delete</button> -->
+        </div>
   </div>
 </div>
 

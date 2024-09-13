@@ -7,7 +7,7 @@
                     <div class = "header-left">
                         <h1>Best Design of Furniture Collection</h1>
                         <p class = "text">Improve the atmosphere through interior design that is driven by purposes to bring value into your environment</p>
-                        <a href = "#" class = "btn-header text-white bg-brown">shop now</a>
+                        <a href = "/products" class = "btn-header text-white bg-brown">shop now</a>
                     </div>
 
                     <div class = "header-right">

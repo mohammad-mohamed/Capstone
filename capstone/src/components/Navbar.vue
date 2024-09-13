@@ -19,14 +19,14 @@
               <li><router-link to="/about" class="nav-link">About</router-link></li>
               <li><router-link to="/products" class="nav-link">Shop</router-link></li>
               <li><router-link to="/checkout" class="nav-link">Checkout</router-link></li>
-              <li v-if="user && user.userRole == 'admin'"><router-link to="/admin" class="nav-link">Admin</router-link></li>
+              <li><router-link to="/admin" class="nav-link">Admin</router-link></li>
               <li><router-link to="/contact" class="nav-link">Contact</router-link></li>
               <ul class="userAccount navbar-nav">
                         <li class="nav-item">
                             <router-link class="nav-link" to="/login">Login</router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/logout">Logout</router-link>
+                            <router-link class="nav-link" to="/logout">Profile</router-link>
                         </li>
                         <li class="nav-item">
                             <router-link class="nav-link" to="/register">Register</router-link>
@@ -81,7 +81,7 @@
                             <router-link class="nav-link" to="/login"><span class="nav-link-text">Login</span></router-link>
                         </li>
                         <li class="nav-item">
-                            <router-link class="nav-link" to="/logout"><span class="nav-link-text">Logout</span></router-link>
+                            <router-link class="nav-link" to="/logout"><span class="nav-link-text">Profile</span></router-link>
                         </li>
                         <li class="nav-item">
                             <router-link class="nav-link" to="/register"><span class="nav-link-text">Register</span></router-link>
