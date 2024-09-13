@@ -12,7 +12,7 @@ import 'vue3-toastify/dist/index.css'
 
 applyToken(cookies.get('LegitUser')?.token)
 
-const apiURL = 'http://localhost:3308/'
+const apiURL = 'https://capstone-f7v7.onrender.com/'
 
 
 
@@ -21,6 +21,7 @@ export default createStore({
     products: [],
     product: null, // To store a single product
     users: [],
+    cart:[]
   },
   getters: {
     allProducts(state) {
@@ -69,8 +70,29 @@ export default createStore({
     DELETE_USER(state, userID) {
       state.users = state.users.filter(user => user.userID !== userID);
     },
+    addToCart(state, product) {
+      const existingProduct = state.cart.find(item => item.prodID === product.prodID);
+      if (existingProduct) {
+        existingProduct.quantity++;
+      } else {
+        state.cart.push({ ...product, quantity: 1 });
+      }
+    },
+    removeFromCart(state, prodID) {
+      state.cart = state.cart.filter(item => item.prodID !== prodID);
+    },
+    updateCartQuantity(state, { prodID, quantity }) {
+      const cartItem = state.cart.find(item => item.prodID === prodID);
+      if (cartItem) {
+        cartItem.quantity = quantity;
+      }
+    },
+    clearCart(state) {
+      state.cart = [];
+    },
   },
   actions: {
+    
     async fetchProducts({ commit }) {
       try {
         const response = await (await axios.get(`${apiURL}product`)).data;
@@ -91,7 +113,7 @@ export default createStore({
       try {
         // const response = await axios.get(`https://capstone-f7v7.onrender.com/product/${prodID}`);
         // const product = await response.json();
-        const {result} = await (await axios.get(`https://capstone-f7v7.onrender.com/products/${prodID}`)).data
+        const {result} = await (await axios.get(`https://capstone-f7v7.onrender.com/product/${prodID}`)).data
         console.log(result);
         
         if (result) {
@@ -104,7 +126,7 @@ export default createStore({
 
     async addProduct({ commit, dispatch }, productData) {
       try {
-        const response = await axios.post('https://capstone-f7v7.onrender.com/products/add', productData);
+        const response = await axios.post('https://capstone-f7v7.onrender.com/product/add', productData);
         if (response.status === 201) {
           commit('addProduct', response.data);
           dispatch('fetchProducts'); // Fetch the updated list of products
@@ -118,7 +140,7 @@ export default createStore({
 
     async updateProduct({ commit, dispatch }, productData ) {
       try {
-        const response = await axios.patch(`https://capstone-f7v7.onrender.com/products/${productData.prodID}`, productData);
+        const response = await axios.patch(`https://capstone-f7v7.onrender.com/product/${productData.prodID}`, productData);
         if (response.status === 200) {
           commit('updateProduct', response.data);
           dispatch('fetchProducts'); // Fetch the updated list of products
@@ -132,7 +154,7 @@ export default createStore({
 
     async deleteProduct(context, prodID) {
       try {
-        const {msg} = await (await axios.delete(`https://capstone-f7v7.onrender.com/products/${prodID}`)).data;
+        const {msg} = await (await axios.delete(`https://capstone-f7v7.onrender.com/product/${prodID}`)).data;
         if (msg) {
           // commit('deleteProduct', prodID);
           context.dispatch('fetchProducts'); // Fetch the updated list of products
@@ -147,34 +169,15 @@ export default createStore({
     },
     async fetchUsers({ commit }) {
       try {
-        const response = await axios.get('https://capstone-f7v7.onrender.com/users');
+        const response = await axios.get('https://capstone-f7v7.onrender.com/user');
         commit('SET_USERS', response.data.results);
       } catch (error) {
         console.error('Error fetching users:', error);
       }
     },
-    async addUser({ commit, dispatch }, userData) {
+    async addUser(context, payload) {
       try {
-        console.log('there');
-        
-        const response = await axios.post('https://capstone-f7v7.onrender.com/users/register', userData);
-        console.log(response);
-        
-        if (response.status === 201) {
-          // Fetch updated users list
-          dispatch('fetchUsers');
-          sweet("User Added!", "The user has been successfully added.", "success");
-        } else {
-          sweet("Error", `Failed to add user: ${response.statusText}`, "error");
-        }
-      } catch (error) {
-        sweet("Error", "An error occurred while adding the user. Please try again.", "error");
-        console.error('Error adding user:', error);
-      }
-    },
-    async register(context, payload) {
-      try {
-        const { msg, err, token } = await (await axios.post(`https://capstone-f7v7.onrender.com/users/register`, payload)).data
+        const { msg, err, token } = await (await axios.post(`https://capstone-f7v7.onrender.com/user/register`, payload)).data
         if (token) {
           context.dispatch('fetchUsers')
           toast.success(`${msg}`, {
@@ -235,6 +238,7 @@ export default createStore({
           autoClose: 2000,
           position: toast.POSITION.BOTTOM_CENTER
         })
+        location.reload()
         router.push({name : 'home'})
       } catch (error) {
         toast.error(`Ooops something went wrong😭`, {
@@ -246,7 +250,7 @@ export default createStore({
 
     async updateUser({ commit }, userData) {
       try {
-        const response = await axios.patch(`https://capstone-f7v7.onrender.com/users/${userData.userID}`, userData);
+        const response = await axios.patch(`https://capstone-f7v7.onrender.com/user/${userData.userID}`, userData);
         commit('UPDATE_USER', response.data);
       } catch (error) {
         console.error('Error updating user:', error);
@@ -259,6 +263,20 @@ export default createStore({
       } catch (error) {
         console.error('Error deleting user:', error);
       }
+    },
+    addToCart({ commit }, product) {
+      commit('addToCart', product);
+      toast.success(`${product.prodName} added to cart!`);
+    },
+    removeFromCart({ commit }, prodID) {
+      commit('removeFromCart', prodID);
+      toast.success(`Item removed from cart!`);
+    },
+    updateCartQuantity({ commit }, { prodID, quantity }) {
+      commit('updateCartQuantity', { prodID, quantity });
+    },
+    clearCart({ commit }) {
+      commit('clearCart');
     },
 
   },

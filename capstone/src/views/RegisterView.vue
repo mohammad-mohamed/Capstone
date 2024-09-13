@@ -128,3 +128,114 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.admin-view {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  background-color: var(--light-grey-color);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+}
+
+h1, h2 {
+  text-align: center;
+  color: var(--dark-color);
+}
+
+.product-management, .user-management {
+  margin-bottom: 3rem;
+}
+
+.product-form, .user-form {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: var(--white-color);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--dark-grey-color);
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--dark-grey-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  background-color: var(--brown-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+button:disabled {
+  background-color: var(--dark-grey-color);
+  cursor: not-allowed;
+}
+
+button:hover:enabled {
+  background-color: var(--dark-color);
+}
+
+.product-list, .user-list {
+  margin-top: 2rem;
+}
+
+.product-card, .user-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: var(--white-color);
+  border: 1px solid var(--dark-grey-color);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+}
+
+.product-info h4, .user-info h4 {
+  margin: 0 0 0.5rem;
+  color: var(--dark-color);
+}
+
+.product-actions button, .user-actions button {
+  margin-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .product-card, .user-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-actions, .user-actions {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+</style>

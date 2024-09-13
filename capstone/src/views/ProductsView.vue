@@ -41,6 +41,7 @@
           <p class="product-category">{{ product.Category }}</p>
           <p class="product-quantity">Quantity: {{ product.quantity }}</p>
           <p class="product-amount">${{ product.amount }}</p>
+          <button class="btn btn-dark" @click="addToCart(product)">Add to Cart</button>
         </template>
         <template #actions>
           <router-link :to="{ name: 'product', params: { id: product.prodID } }" class="view-details-button">
@@ -80,6 +81,10 @@ export default {
 
     const products = computed(() => store.getters.allProducts);
 
+    const addToCart = (product) => {
+      store.dispatch('addToCart', product);
+    };
+
     const filteredProducts = computed(() => {
       return products.value.filter(product => {
         const matchesSearchQuery = product.prodName.toLowerCase().includes(searchQuery.value.toLowerCase());
@@ -98,6 +103,7 @@ export default {
       selectedCategory,
       filteredProducts,
       uniqueCategories,
+      addToCart,
     };
   },
 };

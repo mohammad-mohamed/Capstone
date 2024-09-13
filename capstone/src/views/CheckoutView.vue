@@ -1,92 +1,84 @@
 <template>
-
-    <navbar/>
-    <spinner v-if="!$store.state.cart"></spinner>
-    
-    <div>
-  
-      <div class="container text-center">
-        <div class="row align-items-center">
-          <div id="checkout-head" class="mb-5 mt-4">
-            <h1 id="checkoutDrag">Checkout</h1>
-          </div>
-        </div>
+  <div class="checkout container">
+    <h1>Checkout</h1>
+    <div v-if="cartItems && cartItems.length > 0" class="checkout-content">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>amount</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in cartItems" :key="item.prodID">
+            <td>{{ item.prodName }}</td>
+            <td>${{ item.amount }}</td>
+            <td>
+              <input
+                type="number"
+                v-model="item.quantity"
+                min="1"
+                @change="updateQuantity(item.prodID, item.quantity)"
+              />
+            </td>
+            <td>
+              <button class="btn btn-danger" @click="removeFromCart(item.prodID)">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="checkout-footer">
+        <p>Total: ${{ totalAmount }}</p>
+        <button class="btn btn-primary" @click="checkout">Proceed to Checkout</button>
       </div>
-  
-      <div class="container mt-4">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="table-responsive">
-              <table class="table table-dark table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Price per Unit</th>
-                    <th scope="col">Total Price</th>
-                    <th scope="col">Remove Item</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="cart in $store.state.cart" :key="cart.orderID">
-                    <td><img :src="cart.prod_URL" style="height: 150px;width: 200px;"></td>
-                    <td>{{cart.prodName}}</td>
-                    <td>{{cart.sold_quantity}}</td>
-                    <td>{{cart.price_per_unit}}</td>
-                    <td>{{cart.total_price}}</td>
-                    <td><button id="checkBut" @click="deleteCartItem(cart.prod_ID)">Delete</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-  
-      </div>
-  
-      <div id="total-con" class="container-fluid d-flex justify-content-center">
-  
-      </div>
-  
-      <div class="container-fluid d-flex justify-content-center">
-  
-        <button @click="checkout" id="checkout-button" type="button" class="btn btn-light mx-2">Checkout</button>
-  
-      </div>
-  
     </div>
-    <footer id="footer-con" class="container py-3 my-1" style="font-family: fantasy;">
-      <p id="footer" class="text-center text">Redragon - Copyright© - 2024 | All Rights Reserved</p>
-    </footer>
-  </template>
-  <script>
-  
-  export default {
-    components: {
-      navbar,
-      spinner
-    },
-  
-    data() {
-      return {}
-    },
-    computed: {
-      getUserCart() {
-        this.$store.dispatch('getUserCart')
-      }
-    },
-    methods: {
-      deleteCartItem(prod_ID) {
-        console.log(prod_ID);
-        this.$store.dispatch('deleteCartItem', prod_ID)
-      },
-      checkout() {
-        this.$store.dispatch('checkout')
-      }
-    },
-    mounted() {
-      this.getUserCart
-    }
-  }
-  </script>
+    <div v-else>
+      <p>Your cart is empty!</p>
+    </div>
+  </div>
+</template>
+<script>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+export default {
+  setup() {
+    const store = useStore();
+    const cartItems = computed(() => store.state.cart || []);
+    const removeFromCart = (prodID) => {
+      store.dispatch('removeFromCart', prodID);
+    };
+    const updateQuantity = (prodID, quantity) => {
+      store.dispatch('updateCartQuantity', { prodID, quantity });
+    };
+    const totalAmount = computed(() => {
+      return cartItems.value.reduce((total, item) => total + (item.amount * item.quantity), 0);
+    });
+    const checkout = () => {
+      alert(`Proceeding with payment of $${totalAmount.value}`);
+      store.dispatch('clearCart');
+    };
+    return {
+      cartItems,
+      totalAmount,
+      removeFromCart,
+      updateQuantity,
+      checkout,
+    };
+  },
+};
+</script>
+<style scoped>
+.checkout {
+  margin-top: 40px;
+}
+.checkout-footer {
+  margin-top: 20px;
+  text-align: right;
+}
+.checkout-footer p {
+  font-weight: bold;
+  font-size: 18px;
+}
+</style>
