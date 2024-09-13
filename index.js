@@ -59,7 +59,7 @@ const port = +process.env.PORT || 4000;
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:8080', // Adjust this to match your frontend's origin
+    origin: ['https://capstonedemure.web.app','http://localhost:8080'], // Adjust this to match your frontend's origin
     credentials: true
 }));
 
